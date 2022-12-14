@@ -1,16 +1,21 @@
-# This is a sample Python script.
+import requests
+from dotenv import load_dotenv
+import os
+import firebase_admin
+from firebase_admin import credentials
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+load_dotenv()
 
+api_link = os.environ.get("API_LINK")
+api_key = os.environ.get("API_KEY")
+db_key_path = os.environ.get("DB_KEY_PATH")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# response is the array of movies
+response = requests.get(f"{api_link}/top_rated?api_key={api_key}&language=en-US&page=1").json()["results"]
 
+# Drop everything we don't need
+# Feed the array back with only needed info
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+cred = credentials.Certificate(f"{db_key_path}")
+firebase_admin.initialize_app(cred)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
