@@ -27,4 +27,4 @@ for movie in response:
     del movie['video']
     del movie['vote_count']
 
-print(response[0])
+
