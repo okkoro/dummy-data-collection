@@ -19,3 +19,12 @@ response = requests.get(f"{api_link}/top_rated?api_key={api_key}&language=en-US&
 cred = credentials.Certificate(f"{db_key_path}")
 firebase_admin.initialize_app(cred)
 
+for movie in response:
+    del movie['adult']
+    del movie['backdrop_path']
+    del movie['original_title']
+    del movie['popularity']
+    del movie['video']
+    del movie['vote_count']
+
+print(response[0])
