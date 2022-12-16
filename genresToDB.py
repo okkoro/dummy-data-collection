@@ -14,6 +14,11 @@ cred = credentials.Certificate(f"{db_key_path}")
 app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-response = requests.get(f"{api_link}genre/movie/list?api_key={api_key}&language=en-US")
+requestLink = f"{api_link}/genre/movie/list?api_key={api_key}&language=en-US"
 
-print(response.json())
+response = requests.get(requestLink).json()["genres"]
+
+for genre in response:
+    ref = db.collection(u"genres").document(str(genre['id']))
+
+    ref.set(genre)
