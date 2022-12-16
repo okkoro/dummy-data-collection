@@ -21,7 +21,7 @@ db = firestore.client()
 page = 1
 
 while page <= 500:
-    response = requests.get(f"{api_link}/top_rated?api_key={api_key}&language=en-US&page={page}").json()["results"]
+    response = requests.get(f"{api_link}/movie/top_rated?api_key={api_key}&language=en-US&page={page}").json()["results"]
 
     if page == 1:
         page -= 1
